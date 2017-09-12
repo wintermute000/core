@@ -1,36 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="genie-ansible">
+  <component name="PublishConfigData" autoUpload="Always">
     <serverData>
-      <paths name="Copy of project-level server 'genie-ansible'">
+      <paths name="eve-ng">
         <serverdata>
           <mappings>
-            <mapping deploy="/nxosv/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/ansible/ansible/core" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
-      <paths name="genie">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="genie-ansible">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/nxosv/" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="tinypc">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="ubuntu-test">
+      <paths name="genie-ansible (project level)">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

@@ -1,14 +1,14 @@
 [dc1]
-dc1-core-01
-dc1-core-02
-dc1-core-03
-dc1-core-04
+lab-dc1-cnt-core-sw-01
+lab-dc1-cnt-core-sw-02
+lab-dc1-cnt-core-sw-03
+lab-dc1-cnt-core-sw-04
 
 [dc2]
-dc2-core-01
-dc2-core-02
-dc2-core-03
-dc2-core-04
+lab-dc3-cnt-core-sw-01
+lab-dc3-cnt-core-sw-02
+lab-dc3-cnt-core-sw-03
+lab-dc3-cnt-core-sw-04
 
 [all:vars]
 ansible_connection = local

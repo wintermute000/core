@@ -42,6 +42,16 @@
      timer_bgp_keepalive: "{{ item.bgp_timer_bgp_keepalive | default(omit)  }}"
      provider: "{{ provider }}"
     with_items: "{{ bgp_router | default([])  }}"
+    
+  - name: set BGP AF
+    nxos_bgp_af:
+     asn: "{{ item.bgp_asn }}"
+     afi: "{{ item.afi }}"
+     safi: "{{ item.safi }}"
+     maximum_paths_ibgp: "{{ item.maximum_paths_ibgp }}"
+     redistribute: "{{ item.redistribute | default(omit)  }}"
+     provider: "{{ provider }}"
+    with_items: "{{ bgp_router_af | default([])  }}"
 
   - name: set BGP neighbors
     nxos_bgp_neighbor:

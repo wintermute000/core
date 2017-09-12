@@ -15,10 +15,10 @@
 
   roles:
 #    - facts
-#    - base
-#    - files
+    - base
+    - files
 #    - pim
-#    - l3_interfaces
-#    - ospf
+    - l3_interfaces
+    - ospf
     - bgp
 

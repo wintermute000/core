@@ -3,7 +3,15 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="b2e5f5a2-bdcf-45f7-8c00-b1fe49fb1794" name="genie-ansible (project level)" url="http://genie">
-        <fileTransfer host="genie" port="22" privateKey="C:\Users\johannlo\Dropbox\ssh\tiny\id_rsa" rootFolder="/home/johannlo/ansible" accessType="SFTP" username="johannlo" keyPair="true">
+        <fileTransfer host="genie" port="22" privateKey="C:\Users\johannlo\Dropbox\ssh\tiny\id_rsa" rootFolder="/home/johannlo/ansible" accessType="SFTP" keyPair="true" username="johannlo">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="17ea9537-a719-4adb-a583-3ae8971374c3" name="eve-ng" url="http://192.168.145.130">
+        <fileTransfer host="192.168.145.130" port="22" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
           </advancedOptions>
