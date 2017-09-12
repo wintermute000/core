@@ -45,27 +45,13 @@
     with_items: "{{ l3_interfaces | default([])  }}"
     when: item.vlan is defined
 
-#  - name: set l3 subinterface
-#    nxos_config:
-#      lines:
-#        - interface {{ item.subinterface }}
-#      provider: "{{ provider }}"
-#    with_items: "{{ sub_interfaces | default([])  }}"
-#
-#  - name: set l3 subinterface encapsulation
-#    nxos_config:
-#      lines:
-#        - encapsulation dot1q {{ item.vlan }}
-#      parents: interface {{ item.subinterface }}
-#      provider: "{{ provider }}"
-#    with_items: "{{ sub_interfaces | default([])  }}"
-
   - name: set l3 interfaces IP addressing
     nxos_ip_interface:
       interface: "{{ item.interface }}"
       addr: "{{ item.ip_address }}"      
       mask: "{{ item.ip_mask }}"
       tag: "{{ item.tag | default(omit)  }}"
+      description: "{{ item.description | default(omit)}}"
       provider: "{{ provider }}"
     with_items: "{{ l3_interfaces | default([])  }}"
 

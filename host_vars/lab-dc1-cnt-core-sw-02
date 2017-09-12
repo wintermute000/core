@@ -16,7 +16,7 @@ nxos_features:
   - feature: bash-shell
 
 nxos_system:
-  - hostname: lab-dc1-cnt-core-sw-01
+  - hostname: lab-dc1-cnt-core-sw-02
     domain_name: westpac.com.au
     system_mtu: 9216
 
@@ -32,7 +32,7 @@ dns_source_interface:
 
 ospf_router:
   - ospf_process: 1
-    ospf_router_id: 172.25.32.1
+    ospf_router_id: 172.25.32.2
     ospf_vrf: default
     auto_cost: 100000
     timer_throttle_spf_start: 50
@@ -48,15 +48,15 @@ physical_interfaces:
     mode: layer3
     mtu: 9216
   - interface: Ethernet1/3
-    description: "To lab-dc1-cnt-isd1-bg-01"
+    description: "To lab-dc1-cnt-isd1-bg-02"
     mode: layer3
     mtu: 9216
   - interface: Ethernet1/4
-    description: "To lab-dc3-cnt-core-sw-01"
+    description: "To lab-dc3-cnt-core-sw-02"
     mode: layer3
     mtu: 9216
   - interface: Ethernet1/5
-    description: "To lab-dc1-cnt-core-sw-02"
+    description: "To lab-dc1-cnt-core-sw-01"
     mode: layer3
     mtu: 9216
   - interface: Ethernet1/6
@@ -82,7 +82,7 @@ portchannels:
 l3_interfaces:
   - interface: port-channel1.4
     description: "To lab-dc1-cnt-za-fw"
-    ip_address: 172.25.32.200
+    ip_address: 172.25.32.202
     ip_mask: 31
     vlan: 4
     mtu: 9216
@@ -91,7 +91,7 @@ l3_interfaces:
     bfd_multiplier: 3
   - interface: port-channel1.5
     description: "To lab-dc1-cnt-zb-fw"
-    ip_address: 172.25.32.216
+    ip_address: 172.25.32.218
     ip_mask: 31
     vlan: 5
     mtu: 9216
@@ -99,8 +99,8 @@ l3_interfaces:
     bfd_min_rx: 100
     bfd_multiplier: 3
   - interface: Ethernet1/3.3
-    description: "To lab-dc1-cnt-isd1-bg-01 MS-EVPN"
-    ip_address: 172.25.32.80
+    description: "To lab-dc1-cnt-isd1-bg-02 MS-EVPN"
+    ip_address: 172.25.32.82
     ip_mask: 31
     vlan: 3
     mtu: 9216
@@ -108,8 +108,8 @@ l3_interfaces:
     bfd_min_rx: 100
     bfd_multiplier: 3
   - interface: Ethernet1/4.3
-    description: "To lab-dc1-cnt-core-sw-01 DWDM"
-    ip_address: 172.18.25.4
+    description: "To lab-dc1-cnt-core-sw-02 DWDM"
+    ip_address: 172.18.25.6
     ip_mask: 31
     vlan: 3
     mtu: 9216
@@ -117,8 +117,8 @@ l3_interfaces:
     bfd_min_rx: 100
     bfd_multiplier: 3
   - interface: Ethernet1/5.3
-    description: "To lab-dc1-cnt-core-sw-02"
-    ip_address: 172.25.32.64
+    description: "To lab-dc1-cnt-core-sw-01"
+    ip_address: 172.25.32.65
     ip_mask: 31
     vlan: 3
     mtu: 9216
@@ -127,7 +127,7 @@ l3_interfaces:
     bfd_multiplier: 3
   - interface: Ethernet1/6.3
     description: "To lab-dc1-cnt-core-sw-03"
-    ip_address: 172.25.32.66
+    ip_address: 172.25.32.70
     ip_mask: 31
     vlan: 3
     mtu: 9216
@@ -136,7 +136,7 @@ l3_interfaces:
     bfd_multiplier: 3
   - interface: Ethernet1/7.3
     description: "To lab-dc1-cnt-core-sw-04"
-    ip_address: 172.25.32.68
+    ip_address: 172.25.32.72
     ip_mask: 31
     vlan: 3
     mtu: 9216
@@ -144,7 +144,7 @@ l3_interfaces:
     bfd_min_rx: 100
     bfd_multiplier: 3
   - interface: Loopback0
-    ip_address: 172.25.32.1
+    ip_address: 172.25.32.2
     ip_mask: 32
     tag: 100
 
@@ -182,7 +182,7 @@ ospf_interfaces:
 
 bgp_router:
   - bgp_asn: 65501
-    bgp_router_id: 172.25.32.1
+    bgp_router_id: 172.25.32.2
     bgp_timer_bgp_hold: 20
     bgp_timer_bgp_keepalive: 5
     bgp_graceful_restart: true
@@ -198,7 +198,7 @@ bgp_af:
 	
 bgp_neighbor:
   - asn: 65501
-    neighbor: '172.25.32.2'
+    neighbor: '172.25.32.1'
     remote_as: 65501
     update_source: Loopback0
     bfd: y
@@ -213,14 +213,14 @@ bgp_neighbor:
     update_source: Loopback0
     bfd: y
   - asn: 65502
-    neighbor: '172.18.25.5'
+    neighbor: '172.18.25.7'
     remote_as: 65501
     update_source: Ethernet1/4.3
     bfd: y
 
 bgp_neighbor_af:
   - asn: 65501
-    neighbor: '172.25.32.2'
+    neighbor: '172.25.32.1'
     afi: ipv4
     safi: unicast
     send_community: extended
@@ -238,7 +238,7 @@ bgp_neighbor_af:
     send_community: extended
     next_hop_self: y
   - asn: 65501
-    neighbor: '172.18.25.5'
+    neighbor: '172.18.25.7'
     afi: ipv4
     safi: unicast
     send_community: extended
