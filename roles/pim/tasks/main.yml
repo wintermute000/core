@@ -1,0 +1,9 @@
+---
+# tasks file for pim
+  - name: set PIM
+    nxos_pim_rp_address:
+      group_list: "{{ item.group_list }}"
+      bidir: "{{ item.bidir }}"
+      rp_address: "{{ item.rp_address }}"
+      provider: "{{ provider }}"
+    with_items: "{{ pim_rp | default([]) }}"

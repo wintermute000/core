@@ -1,0 +1,24 @@
+---
+- name: NXOSv staging script
+  gather_facts: no
+  hosts: all
+#  connection: local
+  vars:
+    provider:
+      host: "{{ inventory_hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      transport: nxapi
+      use_ssl: no
+      validate_certs:  false
+    ansible_python_interpreter: python
+
+  roles:
+#    - facts
+#    - base
+#    - files
+#    - pim
+#    - l3_interfaces
+#    - ospf
+    - bgp
+

@@ -1,0 +1,200 @@
+username: admin
+password: admin
+auth_pass: admin
+
+nxos_features:
+  - feature: bgp
+  - feature: ospf
+  - feature: pim
+  - feature: lacp
+  - feature: nxapi
+  - feature: bfd
+  - feature: telemetry
+  - feature: udld
+  - feature: tacacs
+  - feature: scpServer
+  - feature: bash-shell
+
+nxos_system:
+  - hostname: lab-dc1-cnt-core-sw-01
+    domain_name: westpac.com.au
+    system_mtu: 9216
+
+dns_servers:
+  - server: 8.8.8.8
+    vrf: management
+  - server: 8.8.4.4
+    vrf: management
+
+dns_source_interface:
+  - source_interface: mgmt0
+    vrf: management
+
+ospf_router:
+  - ospf_process: 1
+    ospf_router_id: 172.25.32.1
+    ospf_vrf: default
+    auto_cost: 100000
+    timer_throttle_spf_start: 50
+    timer_throttle_spf_hold: 200
+    timer_throttle_spf_max: 5000
+    timer_throttle_lsa_start: 50
+    timer_throttle_lsa_hold: 200
+    timer_throttle_lsa_max: 5000
+
+physical_interfaces:
+  - interface: port-channel1
+    description: "To lab-dc1-cnt-ns-fw"
+    mode: layer3
+    mtu: 9216
+  - interface: Ethernet1/3
+    description: "To lab-dc1-cnt-isd1-bg-01"
+    mode: layer3
+    mtu: 9216
+  - interface: Ethernet1/4
+    description: "To lab-dc3-cnt-core-sw-01"
+    mode: layer3
+    mtu: 9216
+  - interface: Ethernet1/5
+    description: "To lab-dc1-cnt-core-sw-02"
+    mode: layer3
+    mtu: 9216
+  - interface: Ethernet1/6
+    description: "To lab-dc1-cnt-core-sw-03"
+    mode: layer3
+    mtu: 9216
+  - interface: Ethernet1/7
+    description: "To lab-dc1-cnt-core-sw-04"
+    mode: layer3
+    mtu: 9216
+  - interface: Loopback0
+    description: "router-id"
+    mode: layer3
+
+portchannels:
+  - group: 1
+    members:
+      - Ethernet1/1
+      - Ethernet1/2
+    mode: active
+    state: present
+
+l3_interfaces:
+  - interface: port-channel1
+    ip_address: 172.25.32.160
+    ip_mask: 31
+    mtu: 9216
+    bfd_interval: 100
+    bfd_min_rx: 100
+    bfd_multiplier: 3
+  - interface: Ethernet1/3.80
+    ip_address: 172.25.32.80
+    ip_mask: 31
+    vlan: 80
+    mtu: 9216
+    bfd_interval: 100
+    bfd_min_rx: 100
+    bfd_multiplier: 3
+  - interface: Ethernet1/4.64
+    ip_address: 172.25.25.0
+    ip_mask: 31
+    vlan: 64
+    mtu: 9216
+    bfd_interval: 100
+    bfd_min_rx: 100
+    bfd_multiplier: 3
+  - interface: Ethernet1/5
+    ip_address: 172.25.32.64
+    ip_mask: 31
+    mtu: 9216
+    bfd_interval: 100
+    bfd_min_rx: 100
+    bfd_multiplier: 3
+  - interface: Ethernet1/6
+    ip_address: 172.25.32.66
+    ip_mask: 31
+    mtu: 9216
+    bfd_interval: 100
+    bfd_min_rx: 100
+    bfd_multiplier: 3
+  - interface: Ethernet1/7
+    ip_address: 172.25.32.68
+    ip_mask: 31
+    mtu: 9216
+    bfd_interval: 100
+    bfd_min_rx: 100
+    bfd_multiplier: 3
+  - interface: Loopback0
+    ip_address: 172.25.32.1
+    ip_mask: 32
+    tag: 100
+
+ospf_interfaces:
+  - interface: Ethernet1/5.64
+    ospf_instance: 1
+    ospf_area: 0
+    type: point-to-point
+    message_digest: true
+    message_digest_algorithm_type: md5
+    message_digest_encryption_type: 3des
+    message_digest_key_id: 1
+    message_digest_password: coretransit	
+  - interface: Ethernet1/6.66
+    ospf_instance: 1
+    ospf_area: 0
+    type: point-to-point
+    message_digest: true
+    message_digest_algorithm_type: md5
+    message_digest_encryption_type: 3des
+    message_digest_key_id: 1
+    message_digest_password: coretransit	
+  - interface: Ethernet1/7.68
+    ospf_instance: 1
+    ospf_area: 0
+    type: point-to-point
+    message_digest: true
+    message_digest_algorithm_type: md5
+    message_digest_encryption_type: 3des
+    message_digest_key_id: 1
+    message_digest_password: coretransit	
+  - interface: Loopback0
+    ospf_instance: 1
+    ospf_area: 0
+
+bgp_router:
+  - bgp_asn: 65501
+    bgp_router_id: 172.25.32.1
+    bgp_timer_bgp_hold: 20
+    bgp_timer_bgp_keepalive: 5
+    bgp_graceful_restart: true
+
+bgp_af:
+  - asn: 65501
+    afi: ipv4
+    safi: unicast
+    redistribute:
+     - direct
+     - "RM-BGP-REDIST-CONNECTED-BGP" 
+	
+bgp_neighbor:
+  - asn: 65501
+    neighbor: '12.12.12.12'
+    remote_as: 1212
+    update_source: Loopback0
+    bfd: y
+
+bgp_neighbor_af:
+  - asn: 65501
+    neighbor: '12.12.12.12'
+    afi: ipv4
+    safi: unicast
+    send_community: extended
+
+route_maps:
+  - name: "RM-BGP-REDIST-CONNECTED-BGP"
+    clauses:
+      - sequence: "permit 10"
+        entry: "match tag 100"
+      - sequence: "deny 200"
+
+

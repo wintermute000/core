@@ -1,0 +1,75 @@
+---
+# tasks file for bgp
+#  - name: populate route-map for redistributing loopback
+#    nxos_config:
+#      lines:
+#        - "{{ item }}"
+#      provider: "{{ provider }}"
+#    with_items: "{{ route_map_bgp_redist_connected_loopback_clauses | default([])  }}"
+
+#  - name: populate route-map for redistributing loopback
+#    nxos_config:
+#      lines:
+#        - "{{ item.entry }}"
+#      parents: route-map RM-REDIST-CONNECTED-BGP-LO {{ item.sequence }}
+#      provider: "{{ provider }}"
+#    with_items: "{{ route_map_bgp_redist_connected_loopback_entries | default([])  }}" 
+
+  - name: populate route-map clauses
+    nxos_config:
+      lines:
+        - route-map {{ item.0.name }} {{ item.1.sequence }}
+      provider: "{{ provider }}"
+    with_subelements:        
+      - "{{ route_maps | default([]) }}"
+      - clauses
+
+  - name: populate route-map entries
+    nxos_config: 
+      lines: 
+        - "{{ item.1.entry }}"
+      parents: route-map {{ item.0.name }} {{ item.1.sequence }}        
+      provider: "{{ provider }}" 
+    when: item.1.entry is defined
+    with_subelements:  
+      - "{{ route_maps | default([]) }}"
+      - clauses
+
+  - name: set BGP process
+    nxos_bgp:
+     asn: "{{ item.bgp_asn }}"
+     timer_bgp_hold: "{{ item.bgp_timer_bgp_hold | default(omit)  }}"
+     timer_bgp_keepalive: "{{ item.bgp_timer_bgp_keepalive | default(omit)  }}"
+     provider: "{{ provider }}"
+    with_items: "{{ bgp_router | default([])  }}"
+
+  - name: set BGP neighbors
+    nxos_bgp_neighbor:
+     asn: "{{ item.asn }}"
+     remote_as: "{{ item.remote_as }}"
+     neighbor: "{{ item.neighbor }}"
+     provider: "{{ provider }}"
+     update_source: "{{ item.update_source | default(omit)  }}"
+    with_items: "{{ bgp_neighbor | default([])  }}"
+
+  - name: set BGP neighbor BFD
+    nxos_config:
+      lines:
+        - bfd
+      parents: 
+        - router bgp {{ item.asn }}
+        - neighbor {{item.neighbor}} 
+      provider: "{{ provider }}"
+    with_items: "{{ bgp_neighbor | default([])  }}"
+    when: item.bfd is defined
+
+  - name: set BGP neighbors per AF
+    nxos_bgp_neighbor_af:
+     asn: "{{ item.asn }}"
+     neighbor: "{{ item.neighbor }}"
+     afi: "{{ item.afi }}"
+     safi: "{{ item.safi }}"
+     send_community: "{{ item.send_community | default(omit) }}"
+     next_hop_self: "{{ item.next_hop_self | default(omit) }}"
+     provider: "{{ provider }}"
+    with_items: "{{ bgp_neighbor_af | default([])  }}"

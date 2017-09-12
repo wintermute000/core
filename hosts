@@ -1,0 +1,16 @@
+[dc1]
+dc1-core-01
+dc1-core-02
+dc1-core-03
+dc1-core-04
+
+[dc2]
+dc2-core-01
+dc2-core-02
+dc2-core-03
+dc2-core-04
+
+[all:vars]
+ansible_connection = local
+username="admin"
+password="admin"

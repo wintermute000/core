@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b2e5f5a2-bdcf-45f7-8c00-b1fe49fb1794" name="genie-ansible (project level)" url="http://genie">
+        <fileTransfer host="genie" port="22" privateKey="C:\Users\johannlo\Dropbox\ssh\tiny\id_rsa" rootFolder="/home/johannlo/ansible" accessType="SFTP" username="johannlo" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

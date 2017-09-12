@@ -1,0 +1,35 @@
+---
+# tasks file for base
+  - name: set features
+    nxos_feature:
+      feature: "{{ item.feature }}"
+      state: enabled
+      provider: "{{ provider }}"
+    with_items: "{{ nxos_features | default([]) }}"
+
+  - name: set system parameters
+    nxos_system:
+      hostname: "{{ item.hostname }}"
+      domain_name: "{{ item.domain_name }}"
+      system_mtu: "{{ item.system_mtu }}"
+      provider: "{{ provider }}"
+    with_items: "{{ nxos_system | default([]) }}"
+
+  - name: set DNS severs
+    nxos_system:      
+      name_servers: "{{ dns_servers }}"
+      provider: "{{ provider }}"
+    when: dns_servers is defined
+
+  - name: set DNS source interface
+    nxos_config:
+      lines:
+        - ip dns source-interface {{ item.source_interface }} vrf {{ item.vrf }}
+      provider: "{{ provider }}"
+    with_items: "{{ dns_source_interface | default([]) }}"
+  
+#  - name: set nv overlay evpn 
+#    nxos_evpn_global:
+#      nv_overlay_evpn: "{{ item.nv_overlay_evpn }}"
+#      provider: "{{ provider }}"
+#    with_items: "{{ evpn_global | default([])  }}"

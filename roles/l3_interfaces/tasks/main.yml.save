@@ -1,0 +1,69 @@
+---
+# tasks file for l3_interfaces
+  - name: set port channels
+    nxos_portchannel:
+      group: "{{ item.group }}"
+      members: "{{ item.members }}"
+      mode: "{{ item.mode }}"
+      state: present
+      provider: "{{ provider }}"
+    with_items: "{{ portchannels | default([])  }}"
+
+  - name: set physical interfaces
+    nxos_interface:
+      interface: "{{ item.interface }}"
+      description: "{{ item.description }}"      
+      admin_state: up
+      mode: "{{ item.mode }}"
+      provider: "{{ provider }}"
+    with_items: "{{ physical_interfaces | default([])  }}"
+
+  - name: set l3 subinterface using fancy filters to avoid separate vars
+    nxos_config:
+      lines:
+        - interface {{ item.interface }}
+        - encapsulation dot1q {{ item.vlan }}
+        - no shutdown
+      parents: interface {{ item.interface }}
+      provider: "{{ provider }}"
+    with_items: "{{ l3_interfaces | default([])  }}"
+    when: item.vlan is defined
+
+
+#      provider: "{{ provider }}"
+#    with_items: "{{ sub_interfaces | default([])  }}"
+#
+#  - name: set l3 subinterface encapsulation
+#    nxos_config:
+#      lines:
+#        - encapsulation dot1q {{ item.vlan }}
+#      parents: interface {{ item.subinterface }}
+#      provider: "{{ provider }}"
+#    with_items: "{{ sub_interfaces | default([])  }}"
+
+  - name: set l3 interfaces IP addressing
+    nxos_ip_interface:
+      interface: "{{ item.interface }}"
+      addr: "{{ item.ip_address }}"      
+      mask: "{{ item.ip_mask }}"
+      provider: "{{ provider }}"
+    with_items: "{{ l3_interfaces | default([])  }}"
+
+  - name: set l3 interface MTU
+    nxos_mtu:
+      interface: "{{ item.interface }}"
+      mtu: "{{ item.mtu }}"
+      provider: "{{ provider }}"
+    with_items: "{{ l3_interfaces | default([])  }}"
+
+
+  - name: set l3 interfaces multicast
+    nxos_pim_interface:
+      interface: "{{ item.interface }}"
+      state: "{{ item.state }}"      
+      sparse: "{{ item.sparse }}"
+      provider: "{{ provider }}"
+    with_items: "{{ pim_interfaces | default([])  }}"
+
+
+      
