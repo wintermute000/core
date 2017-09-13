@@ -11,7 +11,7 @@
     nxos_system:
       hostname: "{{ item.hostname }}"
       domain_name: "{{ item.domain_name }}"
-      system_mtu: "{{ item.system_mtu }}"
+#      system_mtu: "{{ item.system_mtu }}"
       provider: "{{ provider }}"
     with_items: "{{ nxos_system | default([]) }}"
 

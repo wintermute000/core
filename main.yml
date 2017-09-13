@@ -16,7 +16,7 @@
   roles:
 #    - facts
     - base
-    - files
+#    - files
 #    - pim
     - l3_interfaces
     - ospf

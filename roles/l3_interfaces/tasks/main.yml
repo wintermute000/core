@@ -51,7 +51,6 @@
       addr: "{{ item.ip_address }}"      
       mask: "{{ item.ip_mask }}"
       tag: "{{ item.tag | default(omit)  }}"
-      description: "{{ item.description | default(omit)}}"
       provider: "{{ provider }}"
     with_items: "{{ l3_interfaces | default([])  }}"
 

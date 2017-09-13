@@ -32,7 +32,7 @@ dns_source_interface:
 
 ospf_router:
   - ospf_process: 1
-    ospf_router_id: 172.25.32.4
+    ospf_router_id: 172.25.44.4
     ospf_vrf: default
     auto_cost: 100000
     timer_throttle_spf_start: 50
@@ -51,7 +51,7 @@ physical_interfaces:
     description: "To lab-dc3-cnt-isd1-bg-04"
     mode: layer3
     mtu: 9216
-  - interface: Ethernet1/521
+  - interface: Ethernet1/51
     description: "To lab-dc1-cnt-core-sw-04"
     mode: layer3
     mtu: 9216
@@ -82,7 +82,7 @@ portchannels:
 l3_interfaces:
   - interface: port-channel1.4
     description: "To lab-dc1-cnt-za-fw"
-    ip_address: 172.25.32.206
+    ip_address: 172.25.44.206
     ip_mask: 31
     vlan: 4
     mtu: 9216
@@ -91,7 +91,7 @@ l3_interfaces:
     bfd_multiplier: 3
   - interface: port-channel1.5
     description: "To lab-dc1-cnt-zb-fw"
-    ip_address: 172.25.32.222
+    ip_address: 172.25.44.222
     ip_mask: 31
     vlan: 5
     mtu: 9216
@@ -100,7 +100,7 @@ l3_interfaces:
     bfd_multiplier: 3
   - interface: Ethernet1/3.3
     description: "To lab-dc3-cnt-isd1-bg-04 MS-EVPN"
-    ip_address: 172.25.32.86
+    ip_address: 172.25.44.86
     ip_mask: 31
     vlan: 3
     mtu: 9216
@@ -118,7 +118,7 @@ l3_interfaces:
     bfd_multiplier: 3
   - interface: Ethernet1/52.3
     description: "To lab-dc3-cnt-core-sw-03"
-    ip_address: 172.25.32.75
+    ip_address: 172.25.44.75
     ip_mask: 31
     vlan: 3
     mtu: 9216
@@ -127,7 +127,7 @@ l3_interfaces:
     bfd_multiplier: 3
   - interface: Ethernet1/53.3
     description: "To lab-dc1-cnt-core-sw-02"
-    ip_address: 172.25.32.73
+    ip_address: 172.25.44.73
     ip_mask: 31
     vlan: 3
     mtu: 9216
@@ -136,7 +136,7 @@ l3_interfaces:
     bfd_multiplier: 3
   - interface: Ethernet1/54.3
     description: "To lab-dc1-cnt-core-sw-01"
-    ip_address: 172.25.32.69
+    ip_address: 172.25.44.69
     ip_mask: 31
     vlan: 3
     mtu: 9216
@@ -144,7 +144,7 @@ l3_interfaces:
     bfd_min_rx: 100
     bfd_multiplier: 3
   - interface: Loopback0
-    ip_address: 172.25.32.4
+    ip_address: 172.25.44.4
     ip_mask: 32
     tag: 100
 
@@ -155,61 +155,60 @@ ospf_interfaces:
     type: point-to-point
     message_digest: true
     message_digest_algorithm_type: md5
-    message_digest_encryption_type: 3des
     message_digest_key_id: 1
-    message_digest_password: coretransit	
+    message_digest_password: d3f218a67e5c49129d0323825bf03527
+    message_digest_encryption_type: 3des
   - interface: Ethernet1/53.3
     ospf_instance: 1
     ospf_area: 0
     type: point-to-point
     message_digest: true
     message_digest_algorithm_type: md5
-    message_digest_encryption_type: 3des
     message_digest_key_id: 1
-    message_digest_password: coretransit	
+    message_digest_password: d3f218a67e5c49129d0323825bf03527
+    message_digest_encryption_type: 3des
   - interface: Ethernet1/54.3
     ospf_instance: 1
     ospf_area: 0
     type: point-to-point
     message_digest: true
     message_digest_algorithm_type: md5
-    message_digest_encryption_type: 3des
     message_digest_key_id: 1
-    message_digest_password: coretransit	
+    message_digest_password: d3f218a67e5c49129d0323825bf03527
+    message_digest_encryption_type: 3des
   - interface: Loopback0
     ospf_instance: 1
     ospf_area: 0
 
 bgp_router:
-  - bgp_asn: 65501
-    bgp_router_id: 172.25.32.4
+  - bgp_asn: 65502
+    bgp_router_id: 172.25.44.4
     bgp_timer_bgp_hold: 20
     bgp_timer_bgp_keepalive: 5
     bgp_graceful_restart: true
 
 bgp_af:
-  - asn: 65501
+  - asn: 65502
     afi: ipv4
     safi: unicast
     maximum_paths_ibgp: 4
     redistribute:
-     - direct
-     - "RM-BGP-REDIST-CONNECTED-BGP" 
-	
+     - [direct, "RM-BGP-REDIST-CONNECTED-BGP"]
+ 
 bgp_neighbor:
-  - asn: 65501
-    neighbor: '172.25.32.1'
-    remote_as: 65501
+  - asn: 65502
+    neighbor: '172.25.44.1'
+    remote_as: 65502
     update_source: Loopback0
     bfd: y
-  - asn: 65501
-    neighbor: '172.25.32.2'
-    remote_as: 65501
+  - asn: 65502
+    neighbor: '172.25.44.2'
+    remote_as: 65502
     update_source: Loopback0
     bfd: y
-  - asn: 65501
-    neighbor: '172.25.32.3'
-    remote_as: 65501
+  - asn: 65502
+    neighbor: '172.25.44.3'
+    remote_as: 65502
     update_source: Loopback0
     bfd: y
   - asn: 65502
@@ -219,25 +218,25 @@ bgp_neighbor:
     bfd: y
 
 bgp_neighbor_af:
-  - asn: 65501
-    neighbor: '172.25.32.1'
+  - asn: 65502
+    neighbor: '172.25.44.1'
     afi: ipv4
     safi: unicast
     send_community: extended
     next_hop_self: y
-  - asn: 65501
-    neighbor: '172.25.32.2'
+  - asn: 65502
+    neighbor: '172.25.44.2'
     afi: ipv4
     safi: unicast
     send_community: extended
     next_hop_self: y
-  - asn: 65501
-    neighbor: '172.25.32.3'
+  - asn: 65502
+    neighbor: '172.25.44.3'
     afi: ipv4
     safi: unicast
     send_community: extended
     next_hop_self: y
-  - asn: 65501
+  - asn: 65502
     neighbor: '172.18.25.10'
     afi: ipv4
     safi: unicast

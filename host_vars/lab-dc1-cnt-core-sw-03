@@ -155,27 +155,27 @@ ospf_interfaces:
     type: point-to-point
     message_digest: true
     message_digest_algorithm_type: md5
-    message_digest_encryption_type: 3des
     message_digest_key_id: 1
-    message_digest_password: coretransit	
+    message_digest_password: d3f218a67e5c49129d0323825bf03527
+    message_digest_encryption_type: 3des
   - interface: Ethernet1/53.3
     ospf_instance: 1
     ospf_area: 0
     type: point-to-point
     message_digest: true
     message_digest_algorithm_type: md5
-    message_digest_encryption_type: 3des
     message_digest_key_id: 1
-    message_digest_password: coretransit	
+    message_digest_password: d3f218a67e5c49129d0323825bf03527
+    message_digest_encryption_type: 3des
   - interface: Ethernet1/54.3
     ospf_instance: 1
     ospf_area: 0
     type: point-to-point
     message_digest: true
     message_digest_algorithm_type: md5
-    message_digest_encryption_type: 3des
     message_digest_key_id: 1
-    message_digest_password: coretransit	
+    message_digest_password: d3f218a67e5c49129d0323825bf03527
+    message_digest_encryption_type: 3des
   - interface: Loopback0
     ospf_instance: 1
     ospf_area: 0
@@ -193,9 +193,8 @@ bgp_af:
     safi: unicast
     maximum_paths_ibgp: 4
     redistribute:
-     - direct
-     - "RM-BGP-REDIST-CONNECTED-BGP" 
-	
+     - [direct, "RM-BGP-REDIST-CONNECTED-BGP"]
+ 
 bgp_neighbor:
   - asn: 65501
     neighbor: '172.25.32.1'
@@ -212,9 +211,9 @@ bgp_neighbor:
     remote_as: 65501
     update_source: Loopback0
     bfd: y
-  - asn: 65502
+  - asn: 65501
     neighbor: '172.18.25.9'
-    remote_as: 65501
+    remote_as: 65502
     update_source: Ethernet1/51.3
     bfd: y
 

@@ -28,7 +28,6 @@
       ospf: "{{ item.ospf_instance }}" 
       provider: "{{ provider }}"
       cost: "{{ item.cost | default(omit)  }}"
-      type: "{{ item.type | default(omit)  }}"
       message_digest: "{{ item.message_digest | default(omit)  }}"
       message_digest_algorithm_type: "{{ item.message_digest_algorithm_type | default(omit)  }}"
       message_digest_encryption_type: "{{ item.message_digest_encryption_type | default(omit)  }}"
