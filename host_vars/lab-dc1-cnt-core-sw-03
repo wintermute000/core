@@ -51,19 +51,19 @@ physical_interfaces:
     description: "To lab-dc1-cnt-isd1-bg-03"
     mode: layer3
     mtu: 9216
-  - interface: Ethernet1/4
+  - interface: Ethernet1/51
     description: "To lab-dc3-cnt-core-sw-03"
     mode: layer3
     mtu: 9216
-  - interface: Ethernet1/5
+  - interface: Ethernet1/52
     description: "To lab-dc1-cnt-core-sw-04"
     mode: layer3
     mtu: 9216
-  - interface: Ethernet1/6
+  - interface: Ethernet1/53
     description: "To lab-dc1-cnt-core-sw-02"
     mode: layer3
     mtu: 9216
-  - interface: Ethernet1/7
+  - interface: Ethernet1/54
     description: "To lab-dc1-cnt-core-sw-01"
     mode: layer3
     mtu: 9216
@@ -74,8 +74,8 @@ physical_interfaces:
 portchannels:
   - group: 1
     members:
-      - Ethernet1/1
-      - Ethernet1/2
+      - Ethernet1/49
+      - Ethernet1/50
     mode: active
     state: present
 
@@ -107,7 +107,7 @@ l3_interfaces:
     bfd_interval: 100
     bfd_min_rx: 100
     bfd_multiplier: 3
-  - interface: Ethernet1/4.3
+  - interface: Ethernet1/51.3
     description: "To lab-dc1-cnt-core-sw-03 DWDM"
     ip_address: 172.18.25.8
     ip_mask: 31
@@ -116,7 +116,7 @@ l3_interfaces:
     bfd_interval: 100
     bfd_min_rx: 100
     bfd_multiplier: 3
-  - interface: Ethernet1/5.3
+  - interface: Ethernet1/52.3
     description: "To lab-dc1-cnt-core-sw-04"
     ip_address: 172.25.32.74
     ip_mask: 31
@@ -125,7 +125,7 @@ l3_interfaces:
     bfd_interval: 100
     bfd_min_rx: 100
     bfd_multiplier: 3
-  - interface: Ethernet1/6.3
+  - interface: Ethernet1/53.3
     description: "To lab-dc1-cnt-core-sw-02"
     ip_address: 172.25.32.71
     ip_mask: 31
@@ -134,7 +134,7 @@ l3_interfaces:
     bfd_interval: 100
     bfd_min_rx: 100
     bfd_multiplier: 3
-  - interface: Ethernet1/7.3
+  - interface: Ethernet1/54.3
     description: "To lab-dc1-cnt-core-sw-01"
     ip_address: 172.25.32.67
     ip_mask: 31
@@ -149,7 +149,7 @@ l3_interfaces:
     tag: 100
 
 ospf_interfaces:
-  - interface: Ethernet1/5.3
+  - interface: Ethernet1/52.3
     ospf_instance: 1
     ospf_area: 0
     type: point-to-point
@@ -158,7 +158,7 @@ ospf_interfaces:
     message_digest_encryption_type: 3des
     message_digest_key_id: 1
     message_digest_password: coretransit	
-  - interface: Ethernet1/6.3
+  - interface: Ethernet1/53.3
     ospf_instance: 1
     ospf_area: 0
     type: point-to-point
@@ -167,7 +167,7 @@ ospf_interfaces:
     message_digest_encryption_type: 3des
     message_digest_key_id: 1
     message_digest_password: coretransit	
-  - interface: Ethernet1/7.3
+  - interface: Ethernet1/54.3
     ospf_instance: 1
     ospf_area: 0
     type: point-to-point
@@ -215,7 +215,7 @@ bgp_neighbor:
   - asn: 65502
     neighbor: '172.18.25.9'
     remote_as: 65501
-    update_source: Ethernet1/4.3
+    update_source: Ethernet1/51.3
     bfd: y
 
 bgp_neighbor_af:
